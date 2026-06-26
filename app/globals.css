@@ -1,26 +1,50 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+	--color-bg: linear-gradient(
+		135deg,
+		rgba(30, 41, 59, 0.85),
+		rgba(15, 23, 42, 0.9)
+	);
+	--color-surface: #131922;
+	--color-border: #848fa3;
+	--color-muted: #7c8798;
+	--color-text: #e8ebef;
+	--color-gain: #2ecc71;
+	--color-loss: #ff5c5c;
+
+	--font-display: "Space Grotesk", sans-serif;
+	--font-body: "Inter", sans-serif;
+	--font-mono: "IBM Plex Mono", monospace;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@keyframes flash {
+	from {
+		background-color: rgba(108, 92, 231, 0.25);
+	}
+	to {
+		background-color: transparent;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.animate-flash {
+	animation: flash 800ms ease-out;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+	background: var(--color-bg);
+	color: var(--color-surface);
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+:focus-visible {
+	outline: 2px solid #6c5ce7;
+	outline-offset: 2px;
+}
+
+.table-row {
+	transition: background-color 0.2s ease;
+}
+.table-row:hover {
+	background-color: rgba(100, 116, 139, 0.05);
 }
