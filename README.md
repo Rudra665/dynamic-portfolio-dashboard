@@ -26,7 +26,7 @@ npm install
 Create `.env.local` in the project root:
 
 ```
-NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
+API_BASE=http://localhost:3001
 ```
 
 > Must be prefixed with `NEXT_PUBLIC_` to be accessible in client-side code —
