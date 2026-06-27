@@ -28,14 +28,11 @@ export const StockDetailPanel = ({ row, history, onClose }: Props) => {
 		}),
 		cmp: point.cmp,
 	}));
-	console.log("row.exchangeCode:", row.exchangeCode);
-	console.log("history prop:", history);
-	console.log("chartData:", chartData); // Debugging line
 
 	return (
 		<div
 			className="fixed inset-0 z-50 flex justify-end"
-			role="modal"
+			role="dialog"
 			aria-modal="true"
 		>
 			<div className="absolute inset-0 bg-black/50" onClick={onClose} />
@@ -52,7 +49,7 @@ export const StockDetailPanel = ({ row, history, onClose }: Props) => {
 					className="w-2 h-8 rounded-full mb-3"
 					style={{ backgroundColor: sectorColor(row.sector) }}
 				/>
-				<h2 className="font-display tex-2xl font-semibold mb-6">
+				<h2 className="font-display text-2xl font-semibold mb-6">
 					{row.stockName}
 				</h2>
 				<p className="text-muted font-mono text-sm mb-6">
@@ -113,7 +110,9 @@ export const StockDetailPanel = ({ row, history, onClose }: Props) => {
 					<Detail label="Investment">
 						<NumericCell value={row.investment} />
 					</Detail>
-					<Detail label="Portfolio %">{row.portfolioPercent}</Detail>
+					<Detail label="Portfolio %">
+						{row.portfolioPercent.toFixed(2)}%
+					</Detail>
 					<Detail label="Current Market Price">
 						<NumericCell value={row.cmp} />
 					</Detail>
@@ -121,9 +120,11 @@ export const StockDetailPanel = ({ row, history, onClose }: Props) => {
 						<NumericCell value={row.presentValue} />
 					</Detail>
 					<Detail label="Gain / Loss">
-						<GainLossCell value={row.purchasePrice} size="lg" />
+						<GainLossCell value={row.gainLoss} size="lg" />
 					</Detail>
-					<Detail label="P/E Ratio">{row.peRatio ?? "-"}</Detail>
+					<Detail label="P/E Ratio">
+						{row.peRatio?.toFixed(1) ?? "-"}
+					</Detail>
 					<Detail label="Latest Earnings (EPS)">
 						<NumericCell value={row.latestEarnings} />
 					</Detail>

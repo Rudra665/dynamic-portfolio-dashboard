@@ -8,7 +8,7 @@ import { GainLossCell } from "./GainLossCell";
 import { NumericCell } from "./NumericCell";
 import { groupBySector } from "../lib/groupBySector";
 import { sectorColor } from "../lib/sectorColors";
-import { sortRows } from "@/lib/sortRows";
+import { sortRows } from "../lib/sortRows";
 import { useState } from "react";
 import { PortfolioFlashRow } from "./PortfolioRow";
 
@@ -107,7 +107,6 @@ function SectorGroup({
 	onRowClick: (row: PortfolioRow) => void;
 }) {
 	const color = sectorColor(group.sector);
-	console.log("Rendering SectorGroup for sector:", onRowClick); // Debugging line
 	return (
 		<>
 			<tr

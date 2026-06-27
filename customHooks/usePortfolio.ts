@@ -1,9 +1,8 @@
-/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { useEffect, useState, useRef } from "react";
 import { getPortfolio, refreshPrices } from "../app/api/api";
-import { PortfolioResponse, PricePoint } from "@/lib/types";
+import { PortfolioResponse, PricePoint } from "../lib/types";
 
 const PORTFOLIO_REFRESH_INTERVAL = 15 * 1000; // 15 seconds in milliseconds
 const MAX_HISTORY_POINTS = 30;
@@ -24,7 +23,6 @@ export function usePortfolio() {
 			const data = await getPortfolio();
 			setPortfolio(data);
 
-			// Appending a new point per stock for the chart data, but only if we get a real CMP
 			setPriceHistory((prev) => {
 				const next = { ...prev };
 				const now = Date.now();
@@ -42,8 +40,7 @@ export function usePortfolio() {
 
 				return next;
 			});
-		} catch (err) {
-			console.error("Error fetching portfolio data:", err);
+		} catch {
 			setError("Error fetching portfolio data");
 		} finally {
 			setLoading(false);
@@ -51,9 +48,9 @@ export function usePortfolio() {
 	}
 
 	useEffect(() => {
-		// const timeout = setTimeout(() => {
-		fetchAndRefresh();
-		// }, 0);
+		const timeout = setTimeout(() => {
+			void fetchAndRefresh();
+		}, 0);
 
 		intervalRef.current = setInterval(
 			fetchAndRefresh,
@@ -61,8 +58,10 @@ export function usePortfolio() {
 		);
 
 		return () => {
+			clearTimeout(timeout);
 			if (intervalRef.current) {
 				clearInterval(intervalRef.current);
+				intervalRef.current = null;
 			}
 		};
 	}, []);

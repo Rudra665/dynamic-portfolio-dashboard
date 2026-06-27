@@ -1,5 +1,5 @@
-import { SectorSummary } from "@/lib/types";
-import { sectorColor } from "@/lib/sectorColors";
+import { SectorSummary } from "../lib/types";
+import { sectorColor } from "../lib/sectorColors";
 
 interface Props {
 	sectorSummaries: SectorSummary[];

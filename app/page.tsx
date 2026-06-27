@@ -6,10 +6,9 @@ import { SectorAllocation } from "../components/SectorAllocation";
 import { PortfolioTable } from "../components/PortfolioTable";
 import { PortfolioRow } from "../lib/types";
 import { useMemo, useState } from "react";
-import { StockDetailPanel } from "@/components/StockDetailModal";
+import { StockDetailPanel } from "../components/StockDetailModal";
 
 function getTopPerformer(rows: PortfolioRow[]) {
-	console.log("Rows with gains:", rows); // Debugging line
 	const withGains = rows.filter((r) => r.gainLoss !== null);
 	if (withGains.length === 0) return null;
 	return withGains.reduce((best, cur) =>
@@ -20,7 +19,6 @@ function getTopPerformer(rows: PortfolioRow[]) {
 export default function Home() {
 	const { portfolio, loading, error, priceHistory, refresh } = usePortfolio();
 	const [selectedRow, setSelectedRow] = useState<PortfolioRow | null>(null);
-	console.log("Portfolio data:", portfolio); // Debugging line
 	const [searchQuery, setSearchQuery] = useState("");
 	const filteredRows = useMemo(() => {
 		if (!searchQuery.trim()) return portfolio?.rows || [];
@@ -52,7 +50,7 @@ export default function Home() {
 						placeholder="Search stocks…"
 						value={searchQuery}
 						onChange={(e) => setSearchQuery(e.target.value)}
-						className="bg-surface border border-border rounded-md px-3 py-2 text-sm font-body
+						className="bg-bg border border-border rounded-md px-3 py-2 text-sm font-body text-slate-200
              placeholder:text-muted focus-visible:outline-2 focus-visible:outline-[#6C5CE7]"
 					/>
 					<button
